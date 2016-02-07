@@ -2,4 +2,4 @@
 file monitor for python
 
 ## installation
-´pip install git+https://github.com/theragon/filemon.git´
+`pip install git+https://github.com/theragon/filemon.git`
