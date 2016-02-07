@@ -31,6 +31,6 @@ setup(
 	# Dependent packages (distributions)
 	install_requires=[
 		"pyinotify",
-		"asyncore",
+		#"asyncore",
 	],
 )
