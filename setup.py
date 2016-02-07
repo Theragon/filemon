@@ -1,34 +1,36 @@
 from distutils.core import setup
 
 setup(
-    # Application name:
-    name="filemon",
+	# Application name:
+	name="filemon",
 
-    # Version number (initial):
-    version="0.1.0",
+	# Version number (initial):
+	version="0.1.0",
 
-    # Application author details:
-    author="Logan Theragon",
-    author_email="logantheragon@gmail.com",
+	py_modules=['filemon'],
 
-    # Packages
-    packages=["app"],
+	# Application author details:
+	author="Logan Theragon",
+	author_email="logantheragon@gmail.com",
 
-    # Include additional files into the package
-    include_package_data=True,
+	# Packages
+	#packages=["app"],
 
-    # Details
-    url="http://pypi.python.org/pypi/MyApplication_v010/",
+	# Include additional files into the package
+	#include_package_data=True,
 
-    #
-    # license="LICENSE.txt",
-    description="Useful towel-related stuff.",
+	# Details
+	#url="http://pypi.python.org/pypi/MyApplication_v010/",
 
-    # long_description=open("README.txt").read(),
+	#
+	# license="LICENSE.txt",
+	#description="Useful towel-related stuff.",
 
-    # Dependent packages (distributions)
-    install_requires=[
-        "pyinotify",
-        "asyncore",
-    ],
+	# long_description=open("README.txt").read(),
+
+	# Dependent packages (distributions)
+	install_requires=[
+		"pyinotify",
+		"asyncore",
+	],
 )
