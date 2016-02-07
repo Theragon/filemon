@@ -13,7 +13,7 @@ def goodbye(fmon):
 def handle_change(evt):
 	print(evt.maskname + ' detected in ' + evt.pathname)
 
-fmon = fm.FileMon(path, fm.ALL_EVENTS, handle_change, True)
+fmon = fm.FileMon(path, fm.IN_CLOSE_WRITE, handle_change, True)
 atexit.register(goodbye, fmon)
 fmon.start()
 

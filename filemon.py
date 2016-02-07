@@ -1,8 +1,8 @@
-import test_config as cfg
+#import test_config as cfg
 import pyinotify
 import asyncore
-import atexit
-import time
+#import atexit
+#import time
 #import os
 from pyinotify import IN_ACCESS
 from pyinotify import IN_ATTRIB
@@ -24,9 +24,27 @@ from pyinotify import IN_OPEN
 from pyinotify import IN_Q_OVERFLOW
 from pyinotify import IN_UNMOUNT
 
-
-def goodbye(fm):
-	fm.stop()
+ALL_EVENTS = [
+	IN_ACCESS,
+	IN_ATTRIB,
+	IN_CLOSE_NOWRITE,
+	IN_CLOSE_WRITE,
+	IN_CREATE,
+	IN_DELETE,
+	IN_DELETE_SELF,
+	IN_DONT_FOLLOW,
+	IN_IGNORED,
+	IN_ISDIR,
+	IN_MASK_ADD,
+	IN_MODIFY,
+	IN_MOVE_SELF,
+	IN_MOVED_FROM,
+	IN_MOVED_TO,
+	IN_ONLYDIR,
+	IN_OPEN,
+	IN_Q_OVERFLOW,
+	IN_UNMOUNT,
+]
 
 
 class ModHandler(pyinotify.ProcessEvent):
@@ -38,20 +56,14 @@ class ModHandler(pyinotify.ProcessEvent):
 	def process_default(s, evt):
 		s.callback(evt)
 
-	"""def process_IN_CLOSE_WRITE(self, evt):
-					#global test_config
-					print('Config file changed, reloading config: ' + evt.pathname)
-					print('before reload: ' + str(cfg.port))
-					reload(cfg)
-					print('after reload: ' + str(cfg.port))"""
-
 
 class FileMon():
 	"""docstring for FileMon"""
-	def callback(s, evt):
-		print(evt.maskname + ' detected in ' + evt.pathname)
+	def do_callback(s, evt):
+		s.callback(evt)
 
-	def __init__(s, path, event_types, threaded=True):
+	def __init__(s, path, event_types, callback, threaded=True):
+		s.callback = callback
 		if threaded:
 			s.threaded = True
 		else:
@@ -62,7 +74,7 @@ class FileMon():
 				mask |= t
 		except TypeError:
 			mask = mask | event_types
-		s.handler = ModHandler(mask, s.callback)
+		s.handler = ModHandler(mask, s.do_callback)
 		s.wm = pyinotify.WatchManager()
 		if s.threaded:
 			s.notifier = pyinotify.ThreadedNotifier(s.wm, s.handler)
@@ -83,16 +95,3 @@ class FileMon():
 			s.notifier.stop()
 		else:
 			raise asyncore.ExitNow()
-
-
-def main():
-	print('on start: ' + str(cfg.port))
-	fm = FileMon('test_config.py', IN_CLOSE_WRITE, True)
-	atexit.register(goodbye, fm)
-	fm.start()
-
-	while True:
-		time.sleep(1)
-
-if __name__ == '__main__':
-	main()
