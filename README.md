@@ -1,5 +1,5 @@
 # filemon
-file monitor for python
+file monitor for python based on <https://github.com/seb-m/pyinotify>
 
 ## installation
 `pip install git+https://github.com/theragon/filemon.git`
