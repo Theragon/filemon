@@ -62,7 +62,7 @@ class FileMon():
 	def do_callback(s, evt):
 		s.callback(evt)
 
-	def __init__(s, path, event_types, callback, threaded=True):
+	def __init__(s, path, event_types, callback, threaded=True, rec=True):
 		s.callback = callback
 		if threaded:
 			s.threaded = True
@@ -80,7 +80,7 @@ class FileMon():
 			s.notifier = pyinotify.ThreadedNotifier(s.wm, s.handler)
 		else:
 			s.notifier = pyinotify.AsyncNotifier(s.wm, s.handler)
-		s.wdd = s.wm.add_watch(path, mask)
+		s.wdd = s.wm.add_watch(path, mask, rec=rec)
 
 	def start(s):
 		if s.threaded:
