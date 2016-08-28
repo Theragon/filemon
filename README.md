@@ -2,7 +2,7 @@
 file monitor for python based on <https://github.com/seb-m/pyinotify>
 
 ## installation
-`pip install git+https://github.com/theragon/filemon.git`
+`pip install git+https://github.com/logileifs/filemon.git`
 
 ## usage
 ```python
